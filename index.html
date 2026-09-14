@@ -47,7 +47,9 @@
   .hb2{width:340px;height:340px;background:var(--coral);opacity:.12;bottom:-100px;left:-80px;}
   .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:3rem;align-items:center;max-width:1160px;margin:0 auto;padding:8rem 1.5rem 3rem;position:relative;width:100%;}
   .hero h1{font-size:clamp(2.4rem,5.2vw,3.8rem);margin-bottom:1.3rem;color:var(--ink);}
-  .hero h1 span{color:var(--coral);}
+  .hero h1 span{text-decoration:wavy underline var(--coral);text-decoration-thickness:2px;text-underline-offset:6px;}
+  .hero-grid > div:first-child > *{opacity:0;}
+  .hero-photo-wrap{opacity:0;transform:scale(0.85) rotate(-4deg);}
   .hero p{font-size:1.08rem;color:var(--gray-700);max-width:460px;margin-bottom:2rem;}
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap;}
   .btn{padding:1.05rem 2rem;border-radius:100px;font-weight:700;font-size:0.95rem;display:inline-block;transition:transform .2s;}
@@ -310,7 +312,13 @@
 
 <div class="demo-badge">Example build by <a href="https://intellisystemsagency.com" target="_blank">Intellisystems</a></div>
 
+<script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
 <script>
+  // One deliberate, playful moment: text bounces in, then the photo pops in slightly rotated — like a pet settling into frame
+  const { animate, stagger } = Motion;
+  animate('.hero-grid > div:first-child > *', { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.1), duration: 0.6, easing: 'ease-out' });
+  animate('.hero-photo-wrap', { opacity: [0, 1], scale: [0.85, 1], rotate: [-4, 0] }, { delay: 0.3, duration: 0.7, easing: [0.34, 1.56, 0.64, 1] });
+
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
   document.getElementById('mobileToggle').onclick=()=>document.getElementById('mobileMenu').classList.add('open');
