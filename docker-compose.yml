@@ -1,0 +1,16 @@
+services:
+  site:
+    build: .
+    container_name: wagtail-grooming
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wagtail-grooming.rule=Host(`pets.intellisystemsagency.com`)"
+      - "traefik.http.routers.wagtail-grooming.entrypoints=websecure"
+      - "traefik.http.routers.wagtail-grooming.tls.certresolver=le"
+      - "traefik.http.services.wagtail-grooming.loadbalancer.server.port=80"
+networks:
+  traefik:
+    external: true
